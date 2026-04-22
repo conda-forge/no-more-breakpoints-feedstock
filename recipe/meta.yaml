@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/no_more_breakpoints-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/no_more_breakpoints-{{ version }}.tar.gz
   sha256: 1daf1dfff1a86d68221c4d0c72417cd9611eeea132511a388d5845fbb37de177
 
 build:
@@ -14,15 +14,15 @@ build:
     - nmb = no_more_breakpoints:validate
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.7
+    - python {{ python_min }}
     - hatchling
     - pip
   run:
-    - python >=3.7
+    - python >={{ python_min }}
     - click
     - ripgrep
 
@@ -34,6 +34,7 @@ test:
     - nmb --help
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/kklein/no-more-breakpoints
